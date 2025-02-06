@@ -6,9 +6,13 @@ import {
   TouchableOpacity,
   Image,
   StyleSheet,
+  Alert,
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 function ProfileScreen() {
+  const navigation = useNavigation();
+
   const [formData, setFormData] = useState({
     name: "Melissa Otoo",
     email: "motoo110@st.ug.edu.gh",
@@ -23,26 +27,40 @@ function ProfileScreen() {
     }));
   };
 
+  const handleSave = () => {
+    Alert.alert("Profile Saved", "Your profile has been saved successfully.", [
+      { text: "OK", onPress: () => navigation.navigate("Home") },
+    ]);
+  };
+
+  const handleCancel = () => {
+    navigation.navigate("Home");
+  };
+
+  const handleLogout = () => {
+    navigation.navigate("Home");
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.card}>
         {/* Header */}
         <View style={styles.header}>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={handleCancel}>
             <Text style={styles.buttonText}>Cancel</Text>
           </TouchableOpacity>
           <Text style={styles.title}>Edit Profile</Text>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={handleSave}>
             <Text style={styles.buttonText}>Save</Text>
           </TouchableOpacity>
         </View>
 
         {/* Profile Picture */}
         <View style={styles.imageContainer}>
-        <Image
-              source={require("../assets/belle.jpg")}
-              style={styles.profileImage}
-            />
+          <Image
+            source={require("../assets/belle.jpg")}
+            style={styles.profileImage}
+          />
           <TouchableOpacity style={styles.editIcon}>
             <Text style={styles.editIconText}>✎</Text>
           </TouchableOpacity>
@@ -61,7 +79,7 @@ function ProfileScreen() {
         ))}
 
         {/* Logout Button */}
-        <TouchableOpacity style={styles.logoutButton}>
+        <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
           <Text style={styles.logoutText}>Logout</Text>
         </TouchableOpacity>
       </View>
