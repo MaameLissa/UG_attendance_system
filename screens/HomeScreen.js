@@ -9,7 +9,7 @@ import {
   SafeAreaView,
 } from "react-native";
 
-const HomeScreen = ({ route }) => {
+const HomeScreen = ({ navigation, route }) => {
   const [selectedMonth, setSelectedMonth] = useState("December");
   const userName = route?.params?.userName || "Melissa";
 
@@ -128,7 +128,10 @@ const HomeScreen = ({ route }) => {
           <Text>📅</Text>
           <Text style={styles.navText}>Calendar</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.navItem}>
+        <TouchableOpacity
+          style={styles.navItem}
+          onPress={() => navigation.navigate("Profile")}
+        >
           <Text>👤</Text>
           <Text style={styles.navText}>Profile</Text>
         </TouchableOpacity>
