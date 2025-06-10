@@ -9,7 +9,7 @@ import {
   Platform,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-
+import { Ionicons } from "@expo/vector-icons";
 const userTypes = [
   {
     type: "Student",
@@ -86,7 +86,10 @@ const UserSelectionScreen = () => {
           disabled={!selected}
           activeOpacity={selected ? 0.8 : 1}
         >
-          <Text style={styles.nextButtonText}>Next →</Text>
+          <View style={{ flexDirection: "row", alignItems: "center" }}>
+            <Text style={styles.nextButtonText}>Next </Text>
+            <Ionicons name="arrow-forward" size={18} color="#fff" />
+          </View>
         </TouchableOpacity>
       </View>
     </SafeAreaView>

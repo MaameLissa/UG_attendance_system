@@ -6,9 +6,9 @@ import SplashScreen from "./screens/SplashScreen";
 import UserSelectionScreen from "./screens/UserSelectionScreen";
 import LoginScreen from "./screens/LoginScreen";
 import SignUpScreen from "./screens/SignUpScreen";
-import HomeScreen from "./screens/HomeScreen";
-import ProfileScreen from "./screens/ProfileScreen";
-import SettingsScreen from "./screens/SettingsScreen";
+import MainTabs from "./screens/MainTabs"; 
+import CalendarScreen from "./screens/CalendarScreen";// <-- NEW: Tab navigation file
+
 const Stack = createStackNavigator();
 
 export default function App() {
@@ -26,9 +26,9 @@ export default function App() {
           <Stack.Screen name="UserSelection" component={UserSelectionScreen} />
           <Stack.Screen name="Login" component={LoginScreen} />
           <Stack.Screen name="SignUp" component={SignUpScreen} />
-          <Stack.Screen name="Home" component={HomeScreen} />
-          <Stack.Screen name="Profile" component={ProfileScreen} />
-          <Stack.Screen name="Settings" component={SettingsScreen} />
+          
+          {/* Instead of HomeScreen, show the tab navigator */}
+          <Stack.Screen name="Home" component={MainTabs} />
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>
