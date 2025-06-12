@@ -34,7 +34,7 @@ const SplashScreen = ({ navigation }) => {
             Tracking Progress, Inspiring Achievement
           </Text>
           <Image
-            source={require("../assets/logo-removebg-preview.png")}
+            source={require("../assets/uglogo.png")}
             style={styles.logo}
             resizeMode="contain"
           />
