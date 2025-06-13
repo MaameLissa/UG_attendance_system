@@ -10,6 +10,7 @@ import {
   Dimensions,
 } from "react-native";
 import { Feather, MaterialCommunityIcons } from "@expo/vector-icons";
+import CourseCard from "../components/CourseCard";
 
 const FILTERS = [
   { key: "all", label: "All Courses" },
@@ -27,11 +28,90 @@ export default function CourseScreen({ navigation }) {
   const goodCount = 2;
   const attentionCount = 1;
 
+  // Multiple course objects
+  const courses = [
+    {
+      code: "DCIT-301",
+      name: "Introduction to Operating Systems",
+      attendance: 85,
+      attendanceStatus: "Excellent",
+      sessions: 24,
+      nextClass: "Today, 2:00 PM",
+      instructor: "Dr. Smith",
+      credits: 3,
+      attendanceProgress: 85,
+      iconBg: "#ff4fa1",
+    },
+    {
+      code: "DCIT-313",
+      name: "Introduction to Artificial Intelligence",
+      attendance: 78,
+      attendanceStatus: "Good",
+      sessions: 22,
+      nextClass: "Tomorrow, 10:00 AM",
+      instructor: "Prof. Johnson",
+      credits: 4,
+      attendanceProgress: 78,
+      iconBg: "#13c6b3",
+    },
+    {
+      code: "DCIT-321",
+      name: "Software Evolution",
+      attendance: 92,
+      attendanceStatus: "Excellent",
+      sessions: 20,
+      nextClass: "Wed, 1:00 PM",
+      instructor: "Dr. Williams",
+      credits: 3,
+      attendanceProgress: 92,
+      iconBg: "#7265e3",
+    },
+    {
+      code: "DCIT-301",
+      name: "Introduction to Networking",
+      attendance: 73,
+      attendanceStatus: "Needs Attention",
+      sessions: 26,
+      nextClass: "Thu, 9:00 AM",
+      instructor: "Prof. Davis",
+      credits: 3,
+      attendanceProgress: 73,
+      iconBg: "#23b26d",
+    },
+    {
+      code: "DCIT-317",
+      name: "IT Project Management",
+      attendance: 88,
+      attendanceStatus: "Excellent",
+      sessions: 18,
+      nextClass: "Fri, 11:00 AM",
+      instructor: "Dr. Brown",
+      credits: 2,
+      attendanceProgress: 88,
+      iconBg: "#ff7d2d",
+    },
+    {
+      code: "DCIT-305",
+      name: "Database Fundamentals",
+      attendance: 81,
+      attendanceStatus: "Good",
+      sessions: 25,
+      nextClass: "Mon, 3:00 PM",
+      instructor: "Prof. Wilson",
+      credits: 4,
+      attendanceProgress: 81,
+      iconBg: "#7265e3",
+    },
+  ];
+
   return (
     <SafeAreaView style={styles.container}>
       {/* Header */}
       <View style={styles.headerRow}>
-        <TouchableOpacity onPress={() => navigation.goBack()} style={styles.iconBtn}>
+        <TouchableOpacity
+          onPress={() => navigation.goBack()}
+          style={styles.iconBtn}
+        >
           <Feather name="arrow-left" size={22} color="#222" />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>My Courses</Text>
@@ -55,14 +135,26 @@ export default function CourseScreen({ navigation }) {
 
       {/* Filter Tabs */}
       <View style={styles.tabsWrapper}>
-        <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.tabsRow}>
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={styles.tabsRow}
+        >
           {FILTERS.map((filter) => (
             <TouchableOpacity
               key={filter.key}
-              style={[styles.tabBtn, selectedFilter === filter.key && styles.tabBtnActive]}
+              style={[
+                styles.tabBtn,
+                selectedFilter === filter.key && styles.tabBtnActive,
+              ]}
               onPress={() => setSelectedFilter(filter.key)}
             >
-              <Text style={[styles.tabText, selectedFilter === filter.key && styles.tabTextActive]}>
+              <Text
+                style={[
+                  styles.tabText,
+                  selectedFilter === filter.key && styles.tabTextActive,
+                ]}
+              >
                 {filter.label}
               </Text>
             </TouchableOpacity>
@@ -72,10 +164,20 @@ export default function CourseScreen({ navigation }) {
 
       {/* Dashboard Card */}
       <View style={styles.attendanceCard}>
-        <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
           <Text style={styles.cardTitle}>Attendance Overview</Text>
           <View style={{ flexDirection: "row", alignItems: "center" }}>
-            <MaterialCommunityIcons name="chart-line" size={17} color="#2979f7" />
+            <MaterialCommunityIcons
+              name="chart-line"
+              size={17}
+              color="#2979f7"
+            />
             <Text style={styles.cardSubtitle}> Academic Progress</Text>
           </View>
         </View>
@@ -104,11 +206,46 @@ export default function CourseScreen({ navigation }) {
           </View>
         </View>
       </View>
+
+      {/* Courses List with Quick Actions at end */}
+      <ScrollView contentContainerStyle={{ paddingBottom: 32 }}>
+        {courses.map((course, idx) => (
+          <CourseCard
+            key={course.code + course.name + idx}
+            course={course}
+            onPress={() =>
+              navigation.navigate("CourseDetails", { courseId: course.code })
+            }
+          />
+        ))}
+        {/* Quick Actions at end of page */}
+        <View style={styles.quickActionsCard}>
+          <Text style={styles.quickActionsTitle}>Quick Actions</Text>
+          <View style={styles.quickActionsRow}>
+            <TouchableOpacity style={styles.quickActionBtnGreen}>
+              <Feather
+                name="calendar"
+                size={18}
+                color="#fff"
+                style={{ marginRight: 8 }}
+              />
+              <Text style={styles.quickActionText}>Schedule</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.quickActionBtnPurple}>
+              <Feather
+                name="bar-chart-2"
+                size={18}
+                color="#fff"
+                style={{ marginRight: 8 }}
+              />
+              <Text style={styles.quickActionText}>Analytics</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </ScrollView>
     </SafeAreaView>
   );
 }
-
-const { width } = Dimensions.get("window");
 
 const styles = StyleSheet.create({
   container: {
@@ -279,5 +416,50 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: "600",
     color: "#7b8ca6",
+  },
+  // -------- Quick Actions -----------
+  quickActionsCard: {
+    backgroundColor: "#fff",
+    borderRadius: 18,
+    marginTop: 22,
+    marginHorizontal: 16,
+    padding: 18,
+    shadowColor: "#000",
+    shadowOpacity: 0.06,
+    shadowRadius: 16,
+    elevation: 5,
+  },
+  quickActionsTitle: {
+    fontWeight: "bold",
+    fontSize: 16,
+    color: "#192a4d",
+    marginBottom: 14,
+  },
+  quickActionsRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "flex-start",
+  },
+  quickActionBtnGreen: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#23b26d",
+    borderRadius: 12,
+    paddingVertical: 10,
+    paddingHorizontal: 18,
+    marginRight: 16,
+  },
+  quickActionBtnPurple: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#7265e3",
+    borderRadius: 12,
+    paddingVertical: 10,
+    paddingHorizontal: 18,
+  },
+  quickActionText: {
+    color: "#fff",
+    fontWeight: "bold",
+    fontSize: 15,
   },
 });

@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "FabriceAccountApp",
-    "slug": "FabriceAccountApp",
+    "name": "ClickIn",
+    "slug": "ClickIn",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
