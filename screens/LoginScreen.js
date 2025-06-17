@@ -13,10 +13,9 @@ import {
 import { LinearGradient } from "expo-linear-gradient";
 import { Feather, MaterialCommunityIcons } from "@expo/vector-icons";
 
-export default function AuthScreen({ navigation }) {
+export default function AuthScreen({ navigation, route }) {
   // Auth state
   const [authMode, setAuthMode] = useState("login"); // "login" or "signup"
-  const [role, setRole] = useState("student"); // "student" or "lecturer"
   // Login state
   const [loginId, setLoginId] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
@@ -92,7 +91,12 @@ export default function AuthScreen({ navigation }) {
     setLoginIsLoading(true);
     setTimeout(() => {
       setLoginIsLoading(false);
-      navigation.navigate("Home"); // Go to HomeScreen after login
+      const userType = route.params?.userType;
+      if (userType === "Lecturer") {
+        navigation.navigate("LecturerDashboard");
+      } else {
+        navigation.navigate("Home");
+      }
     }, 1200);
   };
 
@@ -125,48 +129,6 @@ export default function AuthScreen({ navigation }) {
             resizeMode="contain"
           />
         </View>
-        {/* Role Selector */}
-        <View style={styles.roleRow}>
-          <TouchableOpacity
-            style={[styles.roleBtn, role === "student" && styles.roleBtnActive]}
-            onPress={() => setRole("student")}
-          >
-            <MaterialCommunityIcons
-              name="school"
-              size={18}
-              color={role === "student" ? "#fff" : "#b8d8f9"}
-            />
-            <Text
-              style={[
-                styles.roleBtnText,
-                role === "student" && { color: "#fff" },
-              ]}
-            >
-              Student
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[
-              styles.roleBtn,
-              role === "lecturer" && styles.roleBtnActive,
-            ]}
-            onPress={() => setRole("lecturer")}
-          >
-            <MaterialCommunityIcons
-              name="account-tie"
-              size={20}
-              color={role === "lecturer" ? "#fff" : "#b8d8f9"}
-            />
-            <Text
-              style={[
-                styles.roleBtnText,
-                role === "lecturer" && { color: "#fff" },
-              ]}
-            >
-              Lecturer
-            </Text>
-          </TouchableOpacity>
-        </View>
         {/* Auth Card */}
         <View style={styles.card}>
           {authMode === "login" ? (
@@ -186,7 +148,7 @@ export default function AuthScreen({ navigation }) {
               <View style={styles.inputWrapper}>
                 <TextInput
                   style={[styles.input, loginErrors.id && styles.inputError]}
-                  placeholder={role === "student" ? "Student ID" : "Staff ID"}
+                  placeholder="Student ID"
                   placeholderTextColor="#3a4a69"
                   value={loginId}
                   onChangeText={(text) => {
@@ -476,34 +438,6 @@ const styles = StyleSheet.create({
     minWidth: 96,
   },
   crestImage: { width: 96, height: 108 },
-  roleRow: {
-    flexDirection: "row",
-    justifyContent: "center",
-    marginBottom: 10,
-    gap: 12,
-  },
-  roleBtn: {
-    flexDirection: "row",
-    alignItems: "center",
-    paddingVertical: 7,
-    paddingHorizontal: 22,
-    borderRadius: 13,
-    backgroundColor: "rgba(255,255,255,0.10)",
-    marginHorizontal: 6,
-    borderWidth: 1.5,
-    borderColor: "rgba(255,255,255,0.18)",
-    gap: 8,
-  },
-  roleBtnActive: {
-    backgroundColor: "#2979f7",
-    borderColor: "#2979f7",
-  },
-  roleBtnText: {
-    color: "#b8d8f9",
-    fontWeight: "bold",
-    fontSize: 15,
-    marginLeft: 6,
-  },
   card: {
     marginHorizontal: 16,
     marginTop: 14,

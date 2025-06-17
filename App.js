@@ -9,6 +9,11 @@ import SignUpScreen from "./screens/SignUpScreen";
 import MainTabs from "./screens/MainTabs";
 import CourseScreen from "./screens/CourseScreen"; // <-- NEW: Course screen import
 import CalendarScreen from "./screens/CalendarScreen"; // <-- NEW: Tab navigation file
+import LecturerDashboardScreen from "./screens/LecturerDashboardScreen";
+import LecturerCalendarScreen from "./screens/LecturerCalendarScreen";
+import LecturerCoursesScreen from "./screens/LecturerCoursesScreen";
+import LecturerMaterialsScreen from "./screens/LecturerMaterialsScreen";
+import LecturerSettingsScreen from "./screens/LecturerSetting";
 import { CalendarRange } from "lucide-react-native";
 
 const Stack = createStackNavigator();
@@ -30,8 +35,26 @@ export default function App() {
           <Stack.Screen name="SignUp" component={SignUpScreen} />
           <Stack.Screen name="Calendar" component={CalendarScreen} />
           <Stack.Screen name="Course" component={CourseScreen} />
-
-          {/* Instead of HomeScreen, show the tab navigator */}
+          <Stack.Screen
+            name="LecturerDashboard"
+            component={LecturerDashboardScreen}
+          />
+          <Stack.Screen
+            name="LecturerCalendar"
+            component={LecturerCalendarScreen}
+          />
+          <Stack.Screen
+            name="LecturerCourses"
+            component={LecturerCoursesScreen}
+          />
+          <Stack.Screen
+            name="LecturerMaterials"
+            component={LecturerMaterialsScreen}
+          />
+          <Stack.Screen
+            name="LecturerSettings"
+            component={LecturerSettingsScreen}
+          />
           <Stack.Screen name="Home" component={MainTabs} />
         </Stack.Navigator>
       </NavigationContainer>

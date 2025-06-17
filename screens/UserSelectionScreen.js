@@ -36,7 +36,9 @@ const UserSelectionScreen = () => {
   const handleSelect = (type) => setSelected(type);
 
   const handleNext = () => {
-    if (selected) navigation.navigate("Login", { userType: selected });
+    if (selected) {
+      navigation.navigate("Login", { userType: selected });
+    }
   };
 
   return (
