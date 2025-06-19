@@ -388,12 +388,15 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.gray[50],
+    minHeight: '100%',
   },
   tabContainer: {
     flexDirection: 'row',
-    paddingHorizontal: 20,
-    paddingVertical: 16,
-    backgroundColor: 'white',
+    backgroundColor: colors.gray[50],
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    borderBottomWidth: 1,
+    borderBottomColor: colors.gray[200],
   },
   tabButton: {
     paddingHorizontal: 16,
@@ -414,9 +417,11 @@ const styles = StyleSheet.create({
   },
   scrollView: {
     flex: 1,
+    width: '100%',
   },
   scrollViewContent: {
-    paddingBottom: 80, // Add padding to account for bottom navigation
+    paddingBottom: 80,
+    paddingHorizontal: 16,
   },
   statsContainer: {
     flexDirection: 'row',
@@ -551,11 +556,13 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     borderTopColor: colors.gray[200],
     paddingBottom: 10,
+    zIndex: 1000,
   },
   navButton: {
     alignItems: 'center',
     justifyContent: 'center',
     flex: 1,
+    paddingVertical: 8,
   },
   navText: {
     fontSize: 12,
